@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HOMEFORCE // CONTROL MATRIX</title>
+    <title>XSHADOW PANEL</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,94 +23,292 @@
         }
 
         * {
-            box-sizing: border-box; margin: 0; padding: 0;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             font-family: 'Space Grotesk', sans-serif;
-            -webkit-tap-highlight-color: transparent; user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         html, body {
-            width: 100vw; height: 100vh; overflow: hidden;
-            background: var(--bg-deep); color: var(--text-primary);
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--bg-deep);
+            color: var(--text-primary);
         }
 
         body {
             background-image: 
                 radial-gradient(ellipse at 50% -20%, rgba(168, 85, 247, 0.25) 0%, transparent 60%),
                 radial-gradient(ellipse at 50% 120%, rgba(217, 70, 239, 0.15) 0%, transparent 60%);
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            width: 100%; height: 100%; background: var(--card-bg);
-            backdrop-filter: blur(30px); padding: 24px; display: flex;
-            flex-direction: column; justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(30px);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         @media (min-width: 768px) {
             .container {
-                max-width: 480px; height: 92vh; border-radius: 24px;
+                max-width: 480px;
+                height: 92vh;
+                border-radius: 24px;
                 border: 1px solid var(--border-purple);
                 box-shadow: 0 0 50px rgba(168, 85, 247, 0.25);
             }
         }
 
         .header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding-bottom: 16px; border-bottom: 1px solid var(--border-purple);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-purple);
         }
 
         .brand-text {
-            font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.15rem;
+            letter-spacing: 0.05em;
             background: linear-gradient(180deg, #ffffff, var(--accent-fuchsia));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .hidden { display: none !important; }
+        .hidden {
+            display: none !important;
+        }
+
+        .console-box {
+            background: rgba(5, 2, 10, 0.9);
+            border: 1px solid var(--border-purple);
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            min-height: 55px;
+            margin-bottom: 12px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
 
         .input-field {
-            width: 100%; padding: 14px; border-radius: 10px;
-            border: 1px solid var(--border-purple); background: #000;
-            color: #fff; font-family: 'JetBrains Mono', monospace; outline: none; margin-bottom: 12px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border-purple);
+            background: #000;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+            margin-bottom: 12px;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-magenta);
+            box-shadow: 0 0 12px rgba(217, 70, 239, 0.3);
         }
 
         .btn-main {
-            width: 100%; padding: 14px; border-radius: 10px; border: none;
+            position: relative;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
             background: linear-gradient(135deg, var(--accent-violet), var(--accent-magenta));
-            color: #fff; font-family: 'Orbitron', sans-serif; font-weight: 800; cursor: pointer;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s;
         }
 
-        .device-tab-box { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
-        .device-label { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--text-secondary); }
+        .btn-main:active {
+            transform: scale(0.96);
+        }
 
-        .device-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            background: rgba(20, 10, 36, 0.5);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-purple);
+            margin-bottom: 12px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-btn.active {
+            background: var(--accent-violet);
+            color: #fff;
+            box-shadow: 0 0 14px rgba(168, 85, 247, 0.4);
+        }
+
+        .tab-view {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .tab-view.anim-out {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .device-tab-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .device-list {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
 
         .device-chip {
-            padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-purple);
-            background: rgba(20, 10, 36, 0.6); font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem; cursor: pointer; white-space: nowrap; flex-shrink: 0;
-            transition: all 0.2s;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border-purple);
+            background: rgba(20, 10, 36, 0.6);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .device-chip:active {
+            transform: scale(0.94);
         }
 
         .device-chip.active {
-            border-color: var(--accent-magenta); background: rgba(217, 70, 239, 0.2);
-            box-shadow: 0 0 12px rgba(217, 70, 239, 0.4); color: #fff;
+            border-color: var(--accent-magenta);
+            background: rgba(217, 70, 239, 0.25);
+            box-shadow: 0 0 14px rgba(217, 70, 239, 0.4);
+            color: #fff;
         }
 
-        .command-stack { display: flex; flex-direction: column; gap: 12px; }
+        .command-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(8px);
+            pointer-events: none;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .command-stack.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
 
         .btn-cmd {
-            padding: 16px; border-radius: 12px; border: 1px solid var(--border-purple);
-            background: rgba(20, 10, 36, 0.6); color: #fff; display: flex;
-            justify-content: space-between; align-items: center; cursor: pointer;
+            padding: 15px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-purple);
+            background: rgba(20, 10, 36, 0.6);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.25s, box-shadow 0.25s;
         }
 
-        .btn-cmd:active { transform: scale(0.97); }
-        .btn-kicker { border-color: rgba(255, 0, 85, 0.4); }
+        .btn-cmd:active {
+            transform: scale(0.96);
+        }
 
-        .console-box {
-            background: rgba(5, 2, 10, 0.9); border: 1px solid var(--border-purple);
-            border-radius: 10px; padding: 14px; font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem; min-height: 70px;
+        .btn-cmd:hover {
+            border-color: var(--accent-fuchsia);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .btn-kicker {
+            border-color: rgba(255, 0, 85, 0.4);
+        }
+
+        .btn-kicker:hover {
+            border-color: var(--accent-crimson);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+        }
+
+        .info-card {
+            background: rgba(20, 10, 36, 0.6);
+            border: 1px solid var(--border-purple);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .info-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-fuchsia);
+            font-weight: 700;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-anim 0.4s linear;
+            background-color: rgba(240, 171, 252, 0.3);
+            pointer-events: none;
+        }
+
+        @keyframes ripple-anim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -118,48 +316,73 @@
 
     <div class="container">
         <div class="header">
-            <div class="brand-text">HOMEFORCE</div>
-            <div id="adminBadge" style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-fuchsia);">UNAUTHENTICATED</div>
+            <div class="brand-text">XSHADOW PANEL</div>
+            <div id="adminBadge" style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-fuchsia);">OFFLINE</div>
+        </div>
+
+        <div class="console-box">
+            <div style="color: var(--text-dim); font-size: 0.6rem; margin-bottom: 2px;">SYSTEM LOG</div>
+            <div id="logText" style="color: var(--accent-fuchsia);">INITIALIZING SYSTEM...</div>
         </div>
 
         <div id="loginSection" style="margin: auto 0;">
             <input type="text" id="authUser" class="input-field" placeholder="Admin Username">
             <input type="password" id="authPass" class="input-field" placeholder="Admin Password">
-            <button class="btn-main" onclick="login()">AUTHENTICATE</button>
+            <button class="btn-main" onclick="login(event)">AUTHENTICATE</button>
         </div>
 
-        <div id="controlSection" class="hidden" style="display: flex; flex-direction: column; gap: 14px; flex-grow: 1; justify-content: center;">
-            <div class="device-tab-box">
-                <div class="device-label">SELECT TARGET DEVICE</div>
-                <div class="device-list" id="deviceContainer">
-                    <div style="color: #666; font-size: 0.75rem;">Scanning...</div>
+        <div id="controlSection" class="hidden" style="display: flex; flex-direction: column; flex-grow: 1; justify-content: flex-start;">
+            
+            <div class="nav-tabs">
+                <button class="nav-btn active" id="btnTabDevices" onclick="switchTab('devices')">DEVICES</button>
+                <button class="nav-btn" id="btnTabInfo" onclick="switchTab('info')">INFO</button>
+            </div>
+
+            <div id="tabDevicesView" class="tab-view" style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="device-tab-box">
+                    <div style="font-family: Orbitron; font-size: 0.65rem; color: var(--text-secondary);">CONNECTED DEVICES</div>
+                    <div class="device-list" id="deviceContainer">
+                        <div style="color: #666; font-size: 0.75rem;">Scanning online devices...</div>
+                    </div>
+                </div>
+
+                <div id="commandBlock" class="command-stack">
+                    <button class="btn-cmd" onclick="dispatchCommand('TROLL', event)">
+                        <span style="font-family: Orbitron; font-weight: 800;">TROLL</span>
+                        <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-fuchsia);">3x FORCE CLOSE</span>
+                    </button>
+                    <button class="btn-cmd" onclick="dispatchCommand('SPAM10', event)">
+                        <span style="font-family: Orbitron; font-weight: 800;">SPAM10</span>
+                        <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-fuchsia);">10x FORCE CLOSE</span>
+                    </button>
+                    <button class="btn-cmd btn-kicker" onclick="dispatchCommand('KICKER', event)">
+                        <span style="font-family: Orbitron; font-weight: 800;">KICKER</span>
+                        <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-crimson);">KILL THREAD</span>
+                    </button>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
+                        <button class="btn-main" style="background: rgba(20, 10, 36, 0.8); border: 1px solid var(--border-purple); font-size: 0.65rem;" onclick="refreshDevices(event)">REFRESH</button>
+                        <button class="btn-main" style="background: rgba(255, 0, 85, 0.2); border: 1px solid var(--accent-crimson); font-size: 0.65rem; color: var(--accent-crimson);" onclick="purgeCommand(event)">PURGE TARGET</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="command-stack">
-                <button class="btn-cmd" onclick="dispatchCommand('TROLL')">
-                    <span style="font-family: Orbitron; font-weight: 800;">TROLL</span>
-                    <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-fuchsia);">3x FORCE CLOSE</span>
-                </button>
-                <button class="btn-cmd" onclick="dispatchCommand('SPAM10')">
-                    <span style="font-family: Orbitron; font-weight: 800;">SPAM10</span>
-                    <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-fuchsia);">10x FORCE CLOSE</span>
-                </button>
-                <button class="btn-cmd btn-kicker" onclick="dispatchCommand('KICKER')">
-                    <span style="font-family: Orbitron; font-weight: 800;">KICKER</span>
-                    <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-crimson);">KILL THREAD</span>
-                </button>
+            <div id="tabInfoView" class="tab-view hidden" style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="info-label">ADMIN ID</span>
+                        <span class="info-val" id="infoAdminId">ADM-XXXXXX</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">STATUS</span>
+                        <span class="info-val" style="color: var(--accent-emerald);">CONNECTED</span>
+                    </div>
+                </div>
+
+                <button class="btn-main" style="background: rgba(168, 85, 247, 0.2); border: 1px solid var(--border-purple);" onclick="copyAdminId(event)">COPY ADMIN ID</button>
+                <button class="btn-main" style="background: rgba(255, 0, 85, 0.25); border: 1px solid var(--accent-crimson); color: var(--accent-crimson);" onclick="logout(event)">LOGOUT</button>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <button class="btn-main" style="background: rgba(20, 10, 36, 0.8); border: 1px solid var(--border-purple); font-size: 0.7rem;" onclick="refreshDevices()">REFRESH DEVICES</button>
-                <button class="btn-main" style="background: rgba(255, 0, 85, 0.2); border: 1px solid var(--accent-crimson); font-size: 0.7rem; color: var(--accent-crimson);" onclick="purgeCommand()">PURGE TARGET</button>
-            </div>
-        </div>
-
-        <div class="console-box">
-            <div style="color: var(--text-dim); font-size: 0.6rem; margin-bottom: 4px;">SYS // LOG</div>
-            <div id="logText" style="color: var(--accent-fuchsia);">INITIALIZING ENV...</div>
         </div>
     </div>
 
@@ -168,36 +391,98 @@
         let currentAdminId = null;
         let selectedDeviceId = null;
 
+        function createRipple(e) {
+            const btn = e.currentTarget;
+            if (!btn) return;
+            const circle = document.createElement("span");
+            const diameter = Math.max(btn.clientWidth, btn.clientHeight);
+            const radius = diameter / 2;
+            const rect = btn.getBoundingClientRect();
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - radius}px`;
+            circle.style.top = `${e.clientY - rect.top - radius}px`;
+            circle.classList.add("ripple");
+            const existing = btn.getElementsByClassName("ripple")[0];
+            if (existing) existing.remove();
+            btn.appendChild(circle);
+        }
+
         function printLog(msg, isErr = false) {
             const el = document.getElementById("logText");
             el.style.color = isErr ? "var(--accent-crimson)" : "var(--accent-fuchsia)";
             el.innerText = `>> ${msg}`;
         }
 
-        // Auto Fetch Environment variable dari /api/config
         async function loadEnv() {
             try {
                 const res = await fetch('/api/config');
                 const data = await res.json();
                 if (data.firebaseUrl) {
                     BASE_FIREBASE = data.firebaseUrl;
-                    printLog("ENV LOADED // AWAITING LOGIN...");
+                    checkSavedSession();
                 } else {
-                    printLog("FAILED TO LOAD FIREBASE_URL ENV", true);
+                    printLog("ERR: MISSING ENV FIREBASE_URL", true);
                 }
             } catch (e) {
-                printLog("ERR LOADING VERCEL ENV", true);
+                printLog("ERR FETCHING VERCEL ENV", true);
             }
         }
         loadEnv();
 
-        async function login() {
-            if (!BASE_FIREBASE) return printLog("FIREBASE URL NOT READY", true);
+        async function checkSavedSession() {
+            const saved = localStorage.getItem("xshadow_session");
+            if (saved) {
+                try {
+                    const session = JSON.parse(saved);
+                    if (session.u && session.p) {
+                        printLog("RESTORING SESSION...");
+                        document.getElementById("authUser").value = session.u;
+                        document.getElementById("authPass").value = session.p;
+                        await autoLogin(session.u, session.p);
+                        return;
+                    }
+                } catch (e) {
+                    localStorage.removeItem("xshadow_session");
+                }
+            }
+            printLog("SYSTEM READY // ENTER CREDENTIALS");
+        }
+
+        async function autoLogin(u, p) {
+            try {
+                const res = await fetch(`${BASE_FIREBASE}/admins.json`);
+                const data = await res.json();
+                let found = null;
+                if (data) {
+                    for (const [id, val] of Object.entries(data)) {
+                        if (val.auth && val.auth.username === u && val.auth.password === p) {
+                            found = id; break;
+                        }
+                    }
+                }
+                if (found) {
+                    currentAdminId = found;
+                    document.getElementById("loginSection").classList.add("hidden");
+                    document.getElementById("controlSection").classList.remove("hidden");
+                    document.getElementById("adminBadge").innerText = "ONLINE";
+                    document.getElementById("infoAdminId").innerText = currentAdminId;
+                    printLog(`SESSION RESTORED // ID: ${currentAdminId}`);
+                    refreshDevices();
+                } else {
+                    localStorage.removeItem("xshadow_session");
+                    printLog("SAVED SESSION EXPIRED", true);
+                }
+            } catch (err) { printLog(`SESSION RESTORE ERR: ${err.message}`, true); }
+        }
+
+        async function login(e) {
+            if (e) createRipple(e);
+            if (!BASE_FIREBASE) return printLog("DATABASE NOT CONNECTED", true);
             const u = document.getElementById("authUser").value.trim();
             const p = document.getElementById("authPass").value.trim();
             if (!u || !p) return printLog("ENTER CREDENTIALS", true);
 
-            printLog("VERIFYING CREDENTIALS...");
+            printLog("AUTHENTICATING...");
             try {
                 const res = await fetch(`${BASE_FIREBASE}/admins.json`);
                 const data = await res.json();
@@ -213,81 +498,134 @@
 
                 if (found) {
                     currentAdminId = found;
+                    localStorage.setItem("xshadow_session", JSON.stringify({ u, p }));
                     document.getElementById("loginSection").classList.add("hidden");
                     document.getElementById("controlSection").classList.remove("hidden");
-                    document.getElementById("adminBadge").innerText = currentAdminId;
-                    printLog(`AUTH_SUCCESS // ID: ${currentAdminId}`);
+                    document.getElementById("adminBadge").innerText = "ONLINE";
+                    document.getElementById("infoAdminId").innerText = currentAdminId;
+                    printLog(`AUTHENTICATED // ID: ${currentAdminId}`);
                     refreshDevices();
                 } else {
                     printLog("AUTHENTICATION FAILED", true);
                 }
-            } catch (e) { printLog(`NET ERR: ${e.message}`, true); }
+            } catch (err) { printLog(`NET ERR: ${err.message}`, true); }
         }
 
-        async function refreshDevices() {
+        function switchTab(tabName) {
+            const tabDevices = document.getElementById("tabDevicesView");
+            const tabInfo = document.getElementById("tabInfoView");
+            const btnDevices = document.getElementById("btnTabDevices");
+            const btnInfo = document.getElementById("btnTabInfo");
+
+            if (tabName === 'devices') {
+                btnDevices.classList.add("active");
+                btnInfo.classList.remove("active");
+                tabInfo.classList.add("anim-out");
+                setTimeout(() => {
+                    tabInfo.classList.add("hidden");
+                    tabDevices.classList.remove("hidden");
+                    tabDevices.classList.remove("anim-out");
+                }, 150);
+            } else {
+                btnInfo.classList.add("active");
+                btnDevices.classList.remove("active");
+                tabDevices.classList.add("anim-out");
+                setTimeout(() => {
+                    tabDevices.classList.add("hidden");
+                    tabInfo.classList.remove("hidden");
+                    tabInfo.classList.remove("anim-out");
+                }, 150);
+            }
+        }
+
+        async function refreshDevices(e) {
+            if (e) createRipple(e);
             if (!currentAdminId) return;
             printLog("SCANNING DEVICES...");
             const container = document.getElementById("deviceContainer");
+            const cmdBlock = document.getElementById("commandBlock");
             container.innerHTML = "";
+            cmdBlock.classList.remove("visible");
 
             try {
                 const res = await fetch(`${BASE_FIREBASE}/admins/${currentAdminId}/devices.json`);
                 const devices = await res.json();
 
                 if (!devices || Object.keys(devices).length === 0) {
-                    container.innerHTML = `<div style="color:#888; font-size:0.75rem;">No active devices found.</div>`;
+                    container.innerHTML = `<div style="color:#888; font-size:0.75rem;">No active devices online.</div>`;
                     selectedDeviceId = null;
                     return;
                 }
 
-                let first = true;
                 for (const [devId, info] of Object.entries(devices)) {
                     const name = info.info ? info.info.name : devId;
                     const chip = document.createElement("div");
-                    chip.className = `device-chip ${first ? 'active' : ''}`;
+                    chip.className = `device-chip`;
                     chip.innerText = name;
-                    chip.onclick = () => selectDevice(devId, chip);
+                    chip.onclick = (event) => selectDevice(devId, chip, event);
                     container.appendChild(chip);
-
-                    if (first) {
-                        selectedDeviceId = devId;
-                        first = false;
-                    }
                 }
-                printLog(`SCAN COMPLETE (${Object.keys(devices).length} ONLINE)`);
-            } catch (e) { printLog(`SCAN ERR: ${e.message}`, true); }
+                printLog(`FOUND ${Object.keys(devices).length} DEVICE(S). SELECT TARGET.`);
+            } catch (err) { printLog(`SCAN ERR: ${err.message}`, true); }
         }
 
-        function selectDevice(devId, element) {
+        function selectDevice(devId, element, e) {
+            if (e) createRipple(e);
             document.querySelectorAll(".device-chip").forEach(el => el.classList.remove("active"));
             element.classList.add("active");
             selectedDeviceId = devId;
+            
+            const cmdBlock = document.getElementById("commandBlock");
+            cmdBlock.classList.add("visible");
             printLog(`TARGET LOCKED: ${devId}`);
         }
 
-        async function dispatchCommand(cmd) {
-            if (!selectedDeviceId) return printLog("NO DEVICE SELECTED!", true);
+        async function dispatchCommand(cmd, e) {
+            if (e) createRipple(e);
+            if (!selectedDeviceId) return printLog("NO TARGET SELECTED!", true);
 
-            printLog(`DISPATCHING '${cmd}' TO [${selectedDeviceId}]...`);
+            printLog(`DISPATCHING '${cmd}'...`);
             try {
                 const res = await fetch(`${BASE_FIREBASE}/admins/${currentAdminId}/devices/${selectedDeviceId}/command.json`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(cmd)
                 });
-                if (res.ok) printLog(`COMMAND '${cmd}' DISPATCHED.`);
-                else printLog(`DISPATCH FAILED [HTTP ${res.status}]`, true);
-            } catch (e) { printLog(`NET ERR: ${e.message}`, true); }
+                if (res.ok) printLog(`COMMAND '${cmd}' SENT TO TARGET.`);
+                else printLog(`DISPATCH FAILED`, true);
+            } catch (err) { printLog(`NET ERR: ${err.message}`, true); }
         }
 
-        async function purgeCommand() {
-            if (!selectedDeviceId) return printLog("NO DEVICE SELECTED!", true);
-            printLog(`PURGING TARGET BUFFER...`);
+        async function purgeCommand(e) {
+            if (e) createRipple(e);
+            if (!selectedDeviceId) return printLog("NO TARGET SELECTED!", true);
+            printLog(`PURGING TARGET COMMAND...`);
             try {
                 const res = await fetch(`${BASE_FIREBASE}/admins/${currentAdminId}/devices/${selectedDeviceId}/command.json`, { method: 'DELETE' });
                 if (res.ok) printLog("TARGET COMMAND PURGED.");
                 else printLog(`PURGE FAILED`, true);
-            } catch (e) { printLog(`NET ERR: ${e.message}`, true); }
+            } catch (err) { printLog(`NET ERR: ${err.message}`, true); }
+        }
+
+        function copyAdminId(e) {
+            if (e) createRipple(e);
+            if (currentAdminId) {
+                navigator.clipboard.writeText(currentAdminId);
+                printLog("ADMIN ID COPIED TO CLIPBOARD");
+            }
+        }
+
+        function logout(e) {
+            if (e) createRipple(e);
+            localStorage.removeItem("xshadow_session");
+            currentAdminId = null;
+            selectedDeviceId = null;
+            document.getElementById("authUser").value = "";
+            document.getElementById("authPass").value = "";
+            document.getElementById("controlSection").classList.add("hidden");
+            document.getElementById("loginSection").classList.remove("hidden");
+            document.getElementById("adminBadge").innerText = "OFFLINE";
+            printLog("LOGGED OUT // AWAITING LOGIN");
         }
     </script>
 </body>
