@@ -113,7 +113,7 @@
             font-family: 'JetBrains Mono', monospace;
             outline: none;
             margin-bottom: 12px;
-            transition: border-color 0.25s, box-shadow 0.25s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .input-field:focus {
@@ -122,7 +122,6 @@
         }
 
         .btn-main {
-            position: relative;
             width: 100%;
             padding: 14px;
             border-radius: 10px;
@@ -132,8 +131,7 @@
             font-family: 'Orbitron', sans-serif;
             font-weight: 800;
             cursor: pointer;
-            overflow: hidden;
-            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s;
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s;
         }
 
         .btn-main:active {
@@ -161,7 +159,11 @@
             font-weight: 700;
             font-size: 0.75rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
         }
 
         .nav-btn.active {
@@ -173,12 +175,12 @@
         .tab-view {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.25s ease, transform 0.25s ease;
         }
 
         .tab-view.anim-out {
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(8px);
         }
 
         .device-tab-box {
@@ -205,7 +207,7 @@
             cursor: pointer;
             white-space: nowrap;
             flex-shrink: 0;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), border-color 0.2s, background 0.2s;
         }
 
         .device-chip:active {
@@ -226,7 +228,7 @@
             opacity: 0;
             transform: translateY(8px);
             pointer-events: none;
-            transition: opacity 0.35s ease, transform 0.35s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .command-stack.visible {
@@ -245,7 +247,7 @@
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: transform 0.15s ease, border-color 0.25s, box-shadow 0.25s;
+            transition: transform 0.15s ease, border-color 0.2s, box-shadow 0.2s;
         }
 
         .btn-cmd:active {
@@ -294,22 +296,6 @@
             color: var(--accent-fuchsia);
             font-weight: 700;
         }
-
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            transform: scale(0);
-            animation: ripple-anim 0.4s linear;
-            background-color: rgba(240, 171, 252, 0.3);
-            pointer-events: none;
-        }
-
-        @keyframes ripple-anim {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 <body>
@@ -328,7 +314,7 @@
         <div id="loginSection" style="margin: auto 0;">
             <input type="text" id="authUser" class="input-field" placeholder="Admin Username">
             <input type="password" id="authPass" class="input-field" placeholder="Admin Password">
-            <button class="btn-main" onclick="login(event)">AUTHENTICATE</button>
+            <button class="btn-main" onclick="login()">AUTHENTICATE</button>
         </div>
 
         <div id="controlSection" class="hidden" style="display: flex; flex-direction: column; flex-grow: 1; justify-content: flex-start;">
@@ -347,22 +333,22 @@
                 </div>
 
                 <div id="commandBlock" class="command-stack">
-                    <button class="btn-cmd" onclick="dispatchCommand('TROLL', event)">
+                    <button class="btn-cmd" onclick="dispatchCommand('TROLL')">
                         <span style="font-family: Orbitron; font-weight: 800;">TROLL</span>
                         <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-fuchsia);">3x FORCE CLOSE</span>
                     </button>
-                    <button class="btn-cmd" onclick="dispatchCommand('SPAM10', event)">
+                    <button class="btn-cmd" onclick="dispatchCommand('SPAM10')">
                         <span style="font-family: Orbitron; font-weight: 800;">SPAM10</span>
                         <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-fuchsia);">10x FORCE CLOSE</span>
                     </button>
-                    <button class="btn-cmd btn-kicker" onclick="dispatchCommand('KICKER', event)">
+                    <button class="btn-cmd btn-kicker" onclick="dispatchCommand('KICKER')">
                         <span style="font-family: Orbitron; font-weight: 800;">KICKER</span>
                         <span style="font-family: Orbitron; font-size: 0.7rem; color: var(--accent-crimson);">KILL THREAD</span>
                     </button>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
-                        <button class="btn-main" style="background: rgba(20, 10, 36, 0.8); border: 1px solid var(--border-purple); font-size: 0.65rem;" onclick="refreshDevices(event)">REFRESH</button>
-                        <button class="btn-main" style="background: rgba(255, 0, 85, 0.2); border: 1px solid var(--accent-crimson); font-size: 0.65rem; color: var(--accent-crimson);" onclick="purgeCommand(event)">PURGE TARGET</button>
+                        <button class="btn-main" style="background: rgba(20, 10, 36, 0.8); border: 1px solid var(--border-purple); font-size: 0.65rem;" onclick="refreshDevices()">REFRESH</button>
+                        <button class="btn-main" style="background: rgba(255, 0, 85, 0.2); border: 1px solid var(--accent-crimson); font-size: 0.65rem; color: var(--accent-crimson);" onclick="purgeCommand()">PURGE TARGET</button>
                     </div>
                 </div>
             </div>
@@ -379,8 +365,8 @@
                     </div>
                 </div>
 
-                <button class="btn-main" style="background: rgba(168, 85, 247, 0.2); border: 1px solid var(--border-purple);" onclick="copyAdminId(event)">COPY ADMIN ID</button>
-                <button class="btn-main" style="background: rgba(255, 0, 85, 0.25); border: 1px solid var(--accent-crimson); color: var(--accent-crimson);" onclick="logout(event)">LOGOUT</button>
+                <button class="btn-main" style="background: rgba(168, 85, 247, 0.2); border: 1px solid var(--border-purple);" onclick="copyAdminId()">COPY ADMIN ID</button>
+                <button class="btn-main" style="background: rgba(255, 0, 85, 0.25); border: 1px solid var(--accent-crimson); color: var(--accent-crimson);" onclick="logout()">LOGOUT</button>
             </div>
 
         </div>
@@ -390,22 +376,6 @@
         let BASE_FIREBASE = "";
         let currentAdminId = null;
         let selectedDeviceId = null;
-
-        function createRipple(e) {
-            const btn = e.currentTarget;
-            if (!btn) return;
-            const circle = document.createElement("span");
-            const diameter = Math.max(btn.clientWidth, btn.clientHeight);
-            const radius = diameter / 2;
-            const rect = btn.getBoundingClientRect();
-            circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${e.clientX - rect.left - radius}px`;
-            circle.style.top = `${e.clientY - rect.top - radius}px`;
-            circle.classList.add("ripple");
-            const existing = btn.getElementsByClassName("ripple")[0];
-            if (existing) existing.remove();
-            btn.appendChild(circle);
-        }
 
         function printLog(msg, isErr = false) {
             const el = document.getElementById("logText");
@@ -475,8 +445,7 @@
             } catch (err) { printLog(`SESSION RESTORE ERR: ${err.message}`, true); }
         }
 
-        async function login(e) {
-            if (e) createRipple(e);
+        async function login() {
             if (!BASE_FIREBASE) return printLog("DATABASE NOT CONNECTED", true);
             const u = document.getElementById("authUser").value.trim();
             const p = document.getElementById("authPass").value.trim();
@@ -538,8 +507,7 @@
             }
         }
 
-        async function refreshDevices(e) {
-            if (e) createRipple(e);
+        async function refreshDevices() {
             if (!currentAdminId) return;
             printLog("SCANNING DEVICES...");
             const container = document.getElementById("deviceContainer");
@@ -562,15 +530,14 @@
                     const chip = document.createElement("div");
                     chip.className = `device-chip`;
                     chip.innerText = name;
-                    chip.onclick = (event) => selectDevice(devId, chip, event);
+                    chip.onclick = () => selectDevice(devId, chip);
                     container.appendChild(chip);
                 }
                 printLog(`FOUND ${Object.keys(devices).length} DEVICE(S). SELECT TARGET.`);
             } catch (err) { printLog(`SCAN ERR: ${err.message}`, true); }
         }
 
-        function selectDevice(devId, element, e) {
-            if (e) createRipple(e);
+        function selectDevice(devId, element) {
             document.querySelectorAll(".device-chip").forEach(el => el.classList.remove("active"));
             element.classList.add("active");
             selectedDeviceId = devId;
@@ -580,8 +547,7 @@
             printLog(`TARGET LOCKED: ${devId}`);
         }
 
-        async function dispatchCommand(cmd, e) {
-            if (e) createRipple(e);
+        async function dispatchCommand(cmd) {
             if (!selectedDeviceId) return printLog("NO TARGET SELECTED!", true);
 
             printLog(`DISPATCHING '${cmd}'...`);
@@ -596,8 +562,7 @@
             } catch (err) { printLog(`NET ERR: ${err.message}`, true); }
         }
 
-        async function purgeCommand(e) {
-            if (e) createRipple(e);
+        async function purgeCommand() {
             if (!selectedDeviceId) return printLog("NO TARGET SELECTED!", true);
             printLog(`PURGING TARGET COMMAND...`);
             try {
@@ -607,16 +572,14 @@
             } catch (err) { printLog(`NET ERR: ${err.message}`, true); }
         }
 
-        function copyAdminId(e) {
-            if (e) createRipple(e);
+        function copyAdminId() {
             if (currentAdminId) {
                 navigator.clipboard.writeText(currentAdminId);
                 printLog("ADMIN ID COPIED TO CLIPBOARD");
             }
         }
 
-        function logout(e) {
-            if (e) createRipple(e);
+        function logout() {
             localStorage.removeItem("xshadow_session");
             currentAdminId = null;
             selectedDeviceId = null;
